@@ -95,6 +95,36 @@ public class StudentManager {
             System.out.println("Error searching student: " + e.getMessage());
         }
     }
+    public void updateStudent(Scanner scanner) {
+        System.out.print("Enter PRN to update: ");
+        String prn = scanner.nextLine();
+
+        System.out.print("Enter new Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter new DOB: ");
+        String dob = scanner.nextLine();
+        System.out.print("Enter new Marks: ");
+        double marks = scanner.nextDouble();
+        scanner.nextLine();
+
+        String sql = "UPDATE students SET name = ?, dob = ?, marks = ? WHERE prn = ?";
+
+        try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, name);
+            stmt.setString(2, dob);
+            stmt.setDouble(3, marks);
+            stmt.setString(4, prn);
+            int rowsUpdated = stmt.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Student details updated.");
+            } else {
+                System.out.println("Student not found.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error updating student: " + e.getMessage());
+        }
+    }
+
 
 
 
