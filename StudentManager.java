@@ -56,6 +56,26 @@ public class StudentManager {
             System.out.println("Error displaying students: " + e.getMessage());
         }
     }
+    public void searchByPRN(Scanner scanner) {
+        System.out.print("Enter PRN to search: ");
+        String prn = scanner.nextLine();
+        String sql = "SELECT * FROM students WHERE prn = ?";
+
+        try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, prn);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                System.out.println("Student Found: PRN: " + rs.getString("prn") + ", Name: " +
+                        rs.getString("name") + ", DOB: " + rs.getString("dob") + ", Marks: " + rs.getDouble("marks"));
+            } else {
+                System.out.println("Student not found.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error searching student: " + e.getMessage());
+        }
+    }
+
+
 
 
 
