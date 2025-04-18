@@ -29,5 +29,17 @@ public class StudentManager {
         scanner.nextLine();
 
         String sql = "INSERT INTO students (prn, name, dob, marks) VALUES (?, ?, ?, ?)";
+        try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, prn);
+            stmt.setString(2, name);
+            stmt.setString(3, dob);
+            stmt.setDouble(4, marks);
+            stmt.executeUpdate();
+            System.out.println("Student added successfully!");
+        } catch (SQLException e) {
+            System.out.println("Error adding student: " + e.getMessage());
+        }
+    }
+
 
 
