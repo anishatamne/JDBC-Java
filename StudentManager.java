@@ -40,6 +40,23 @@ public class StudentManager {
             System.out.println("Error adding student: " + e.getMessage());
         }
     }
+    public void displayStudents() {
+        String sql = "SELECT * FROM students";
+
+        try (Connection conn = connect(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+            if (!rs.isBeforeFirst()) {
+                System.out.println("No students available.");
+                return;
+            }
+            while (rs.next()) {
+                System.out.println("PRN: " + rs.getString("prn") + ", Name: " + rs.getString("name") +
+                        ", DOB: " + rs.getString("dob") + ", Marks: " + rs.getDouble("marks"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error displaying students: " + e.getMessage());
+        }
+    }
+
 
 
 
