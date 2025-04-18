@@ -12,4 +12,12 @@ public class Student {
         this.dob = dob;
         this.marks = marks;
     }
+
+    
+    // Getters
+        public String getPrn() { return prn; }
+        public String getName() { return name; }
+        public String getDob() { return dob; }
+        public double getMarks() { return marks; }
+
 }
