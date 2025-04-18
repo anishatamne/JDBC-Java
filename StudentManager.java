@@ -124,6 +124,29 @@ public class StudentManager {
             System.out.println("Error updating student: " + e.getMessage());
         }
     }
+    public void deleteStudent(Scanner scanner) {
+        System.out.print("Enter PRN to delete: ");
+        String prn = scanner.nextLine();
+        String sql = "DELETE FROM students WHERE prn = ?";
+
+        try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, prn);
+            int rowsDeleted = stmt.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("Student deleted successfully.");
+            } else {
+                System.out.println("Student not found.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error deleting student: " + e.getMessage());
+        }
+    }
+
+    public void searchByPosition(Scanner scanner) {
+        System.out.println("⚠️ Not supported with database as indexing is not fixed. Use PRN or Name instead.");
+    }
+}
+
 
 
 
